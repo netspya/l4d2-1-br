@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L4D2/1 BRASIL - Servidor Discord</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0e27;
+            color: #e4e4e7;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #27272a;
+            z-index: 50;
+            padding: 1rem 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #e4e4e7;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #dc2626;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #e4e4e7;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 767px) {
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 60px;
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(34, 197, 94, 0.05) 100%);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('l4d2-gameplay.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #dc2626;
+            text-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a1a1a6;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        button, .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #dc2626;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.4);
+            animation: pulse 0.6s ease-out;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #22c55e;
+            border: 2px solid #22c55e;
+            font-weight: bold;
+        }
+
+        .btn-secondary:hover {
+            background: #22c55e;
+            color: #0a0e27;
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid #27272a;
+        }
+
+        section h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: #18181b;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #27272a;
+            transition: all 0.3s;
+            animation: fadeInUp 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            border-color: #dc2626;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+            color: #22c55e;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: #18181b;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #27272a;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: #22c55e;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            color: #22c55e;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #a1a1a6;
+        }
+
+        /* FAQ */
+        .faq-item {
+            background: #18181b;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border: 1px solid #27272a;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #18181b;
+            transition: all 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #27272a;
+            color: #dc2626;
+            border-left: 3px solid #dc2626;
+            padding-left: 17px;
+        }
+
+        .faq-answer {
+            padding: 20px;
+            background: #0a0e27;
+            border-top: 1px solid #27272a;
+            display: none;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: #18181b;
+            padding: 40px 0;
+            text-align: center;
+            color: #a1a1a6;
+            border-top: 1px solid #27272a;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(220, 38, 38, 0.8);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .animate-glow {
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .hero {
+                padding: 60px 0;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">🎮</div>
+                <span>L4D2/1 BRASIL</span>
+            </div>
+            <div class="nav-links" style="display: none;">
+                <a href="#about" onclick="scrollTo('about')">Sobre</a>
+                <a href="#features" onclick="scrollTo('features')">Características</a>
+                <a href="#community" onclick="scrollTo('community')">Comunidade</a>
+                <a href="#faq" onclick="scrollTo('faq')">FAQ</a>
+            </div>
+
+            <style>
+                @media (min-width: 768px) {
+                    .nav-links {
+                        display: flex !important;
+                    }
+                }
+            </style>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Left 4 Dead 2/1</h1>
+            <h2>Comunidade BR</h2>
+            <p class="subtitle">Junte-se ao maior servidor Discord brasileiro de Left 4 Dead 2 e 1. Comunidade ativa, segura e 24/7!</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="joinDiscord()">Entrar no Discord</button>
+                <button class="btn btn-secondary" onclick="scrollTo('features')">Saiba Mais</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2>Sobre o Servidor</h2>
+            <p style="text-align: center; max-width: 600px; margin: 0 auto 40px; font-size: 1.1rem;">
+                Somos a maior comunidade brasileira dedicada a Left 4 Dead 2 e Left 4 Dead 1. Nosso servidor Discord reúne jogadores de todos os níveis, desde iniciantes até veteranos, em um ambiente amigável e competitivo.
+            </p>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Comunidade Ativa</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Suporte Online</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">PT-BR</div>
+                    <div class="stat-label">Suporte Total</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <h2>Por Que Entrar?</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Comunidade Ativa</h3>
+                    <p>Mais de 200 jogadores brasileiros ativos, sempre prontos para jogar e se divertir juntos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Comunidade Unida</h3>
+                    <p>Brasileiros apaixonados por Left 4 Dead reunidos para jogar juntos e se divertir.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🖥️</div>
+                    <h3>Servidores Dedicados</h3>
+                    <p>Servidores privados para membros, com baixa latência e configurações otimizadas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Suporte em PT-BR</h3>
+                    <p>Moderadores e administradores falando português para ajudar você.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community">
+        <div class="container">
+            <h2>Nossa Comunidade</h2>
+            <p style="text-align: center; max-width: 600px; margin: 0 auto 40px; font-size: 1.1rem;">
+                Somos mais que um servidor Discord. Somos uma família de jogadores brasileiros apaixonados por Left 4 Dead. Aqui você encontra amigos, competição saudável e diversão garantida.
+            </p>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Comunidade Ativa</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Suporte Online</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section>
+        <div class="container">
+            <h2>Veja a Ação em Tempo Real</h2>
+            <div style="text-align: center; margin: 40px 0;">
+                <div style="position: relative; width: 100%; max-width: 800px; margin: 0 auto; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 1px solid #27272a;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/yUvTtqKxOlg?si=hGzuCpMHpVd0OH2a" title="Left 4 Dead Gameplay" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <p style="margin-top: 20px; color: #a1a1a6;">Vídeo por <a href="https://www.youtube.com/@meepypie" target="_blank" style="color: #dc2626; text-decoration: none;">@meepypie</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <div class="container">
+            <h2>Perguntas Frequentes</h2>
+            <div style="max-width: 700px; margin: 0 auto;">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Como faço para entrar no servidor Discord?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        É muito simples! Basta clicar no botão "Entrar no Discord" em qualquer seção do site. Você será redirecionado para nosso servidor Discord. Após entrar, leia as regras no canal #regras e aproveite a comunidade!
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Quais são os requisitos para jogar Left 4 Dead?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <strong>Left 4 Dead 2 (Recomendado):</strong><br>
+                        • SO: Windows 7, Windows Vista, Windows XP<br>
+                        • Processador: Intel Core 2 Duo E6600 ou equivalente<br>
+                        • RAM: 2 GB<br>
+                        • GPU: NVIDIA GeForce 8600 ou ATI Radeon HD 2600<br>
+                        • Espaço em disco: 13 GB<br><br>
+                        <strong>Left 4 Dead 1:</strong><br>
+                        • Requisitos semelhantes, mas com menos espaço em disco (8 GB)
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Preciso comprar o jogo para participar do servidor?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Sim, você precisa ter o jogo Left 4 Dead 2 ou Left 4 Dead 1 para jogar nos servidores. Você pode comprar na Steam por um preço bem acessível. Não oferecemos cópias ilegais ou pirateadas.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Posso jogar Left 4 Dead no Linux ou Mac?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Left 4 Dead 2 não tem versão nativa para Linux ou Mac. Porém, você pode usar o Proton (Steam Play) no Linux para rodar o jogo. No Mac, você pode usar Parallels Desktop ou Boot Camp, mas não é recomendado.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Quais são as regras do servidor?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        • Respeito com todos os membros<br>
+                        • Sem spam ou conteúdo impróprio<br>
+                        • Sem cheats ou hacks<br>
+                        • Sem assédio ou discriminação<br>
+                        • Siga as instruções dos moderadores<br><br>
+                        Viole as regras e você será advertido, suspenso ou banido conforme a gravidade.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Tenho dúvidas ou problemas, como faço para obter ajuda?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Nossa equipe de moderadores está sempre disponível para ajudar! Você pode:<br>
+                        • Mencionar um moderador no chat e fazer sua pergunta<br>
+                        • Chamar um moderador no privado para conversar
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section>
+        <div class="container" style="text-align: center;">
+            <h2>Dúvidas?</h2>
+            <p style="max-width: 600px; margin: 0 auto 40px; font-size: 1.1rem;">
+                Não hesita em entrar em contato. Estamos sempre prontos para ajudar!
+            </p>
+            <button class="btn btn-primary" onclick="joinDiscord()">Entrar no Discord</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 L4D2/1 BRASIL - Comunidade Brasileira de Left 4 Dead</p>
+            <p style="margin-top: 10px;">
+                <a href="https://discord.gg/WFZ9NTPVpT" target="_blank" style="color: #dc2626; text-decoration: none;">Discord</a> | 
+                <a href="#" style="color: #dc2626; text-decoration: none;">Termos</a> | 
+                <a href="#" style="color: #dc2626; text-decoration: none;">Privacidade</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function joinDiscord() {
+            window.open('https://discord.gg/WFZ9NTPVpT', '_blank');
+        }
+
+        function scrollTo(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                window.history.pushState(null, null, '#' + id);
+            }
+        }
+
+        // Handle URL hash on page load
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                const id = window.location.hash.substring(1);
+                setTimeout(() => scrollTo(id), 100);
+            }
+        });
+
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            answer.classList.toggle('active');
+            element.querySelector('span:last-child').textContent = answer.classList.contains('active') ? '−' : '+';
+        }
+
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelector('.nav-links').style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
+
